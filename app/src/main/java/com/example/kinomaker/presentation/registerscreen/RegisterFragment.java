@@ -10,11 +10,14 @@ import android.view.ViewGroup;
 
 import com.example.kinomaker.R;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class RegisterFragment extends Fragment {
 
     public RegisterFragment() {}
 
-    public static RegisterFragment newInstance(String param1, String param2) {
+    public static RegisterFragment newInstance() {
         return new RegisterFragment();
     }
 

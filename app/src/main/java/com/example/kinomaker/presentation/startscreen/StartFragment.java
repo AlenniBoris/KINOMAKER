@@ -16,6 +16,10 @@ import com.example.kinomaker.databinding.FragmentStartBinding;
 import com.example.kinomaker.presentation.loginscreen.LoginFragment;
 import com.example.kinomaker.presentation.registerscreen.RegisterFragment;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+
+@AndroidEntryPoint
 public class StartFragment extends Fragment {
 
     private FragmentStartBinding binding;

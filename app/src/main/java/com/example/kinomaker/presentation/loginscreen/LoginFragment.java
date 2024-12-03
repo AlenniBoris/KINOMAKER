@@ -10,12 +10,15 @@ import android.view.ViewGroup;
 
 import com.example.kinomaker.R;
 
+import dagger.hilt.android.AndroidEntryPoint;
 
+
+@AndroidEntryPoint
 public class LoginFragment extends Fragment {
 
     public LoginFragment() {}
 
-    public static LoginFragment newInstance(String param1, String param2) {
+    public static LoginFragment newInstance() {
         return new LoginFragment();
     }
 
