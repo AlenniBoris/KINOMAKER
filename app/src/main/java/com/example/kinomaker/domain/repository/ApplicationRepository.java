@@ -22,6 +22,12 @@ public interface ApplicationRepository {
             OnFailureListener onFailureListener
     );
 
+    public void getUserDataFromServer(
+            String email,
+            OnSuccessListener<DocumentSnapshot> onSuccess,
+            OnFailureListener onFailure
+    );
+
     public void updateUserField(
             String email,
             String field,

@@ -64,6 +64,15 @@ public class ApplicationRepositoryImpl implements ApplicationRepository {
     }
 
     @Override
+    public void getUserDataFromServer(String email, OnSuccessListener<DocumentSnapshot> onSuccess, OnFailureListener onFailure) {
+        database.getDb().collection("users")
+                .document(email)
+                .get()
+                .addOnSuccessListener(onSuccess)
+                .addOnFailureListener(onFailure);
+    }
+
+    @Override
     public void updateUserField(
             String email,
             String field,
