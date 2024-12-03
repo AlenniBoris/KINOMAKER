@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "916605664516",
+    "project_id": "kinomaker-db221",
+    "storage_bucket": "kinomaker-db221.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:916605664516:android:499de868c2c5bf93ea2451",
+        "android_client_info": {
+          "package_name": "com.example.kinomaker"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCoTse8SXkBDJuuflEKjwOhDI6xUolC6Yk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
