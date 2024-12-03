@@ -1,5 +1,7 @@
 package com.example.kinomaker.navigation;
 
+import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentFactory;
@@ -10,7 +12,7 @@ import com.github.terrakok.cicerone.androidx.FragmentScreen;
 
 public class Screen {
 
-    public static FragmentScreen StartFragmentScreen(){
+    public static FragmentScreen StartFragmentScreen(String neededScreen, String userLogin){
         return new FragmentScreen() {
             @Override
             public boolean getClearContainer() {
@@ -21,6 +23,13 @@ public class Screen {
             @Override
             public Fragment createFragment(@NonNull FragmentFactory fragmentFactory) {
                 StartFragment fragment = new StartFragment();
+
+                Bundle bundle = new Bundle();
+                bundle.putString("needed_screen_to_show", neededScreen);
+                bundle.putString("user_registered_login", userLogin);
+
+                fragment.setArguments(bundle);
+
                 return fragment;
             }
 
@@ -42,7 +51,8 @@ public class Screen {
             @NonNull
             @Override
             public Fragment createFragment(@NonNull FragmentFactory fragmentFactory) {
-                return new ApplicationFragment();
+                ApplicationFragment fragment = new ApplicationFragment();
+                return fragment;
             }
 
             @NonNull

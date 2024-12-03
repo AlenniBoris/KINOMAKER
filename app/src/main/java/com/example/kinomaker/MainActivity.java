@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (savedInstanceState == null){
             if (currentUser == null){
-                KinomakerApp.getRouter().newRootScreen(Screen.StartFragmentScreen());
+                KinomakerApp.getRouter().newRootScreen(Screen.StartFragmentScreen("login", ""));
             } else {
                 KinomakerApp.getRouter().newRootScreen(Screen.ApplicationFragmentScreen());
             }
