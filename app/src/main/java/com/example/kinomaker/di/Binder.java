@@ -1,7 +1,7 @@
 package com.example.kinomaker.di;
 
-import com.example.kinomaker.data.repository.ApplicationRepositoryImpl;
-import com.example.kinomaker.domain.repository.ApplicationRepository;
+import com.example.kinomaker.data.repository.UserRepositoryImpl;
+import com.example.kinomaker.domain.repository.UserRepository;
 
 import dagger.Binds;
 import dagger.Module;
@@ -13,6 +13,6 @@ import dagger.hilt.components.SingletonComponent;
 public interface Binder {
 
     @Binds
-    public ApplicationRepository bindApplicationRepository(ApplicationRepositoryImpl applicationRepositoryImpl);
+    public UserRepository bindApplicationRepository(UserRepositoryImpl applicationRepositoryImpl);
 
 }

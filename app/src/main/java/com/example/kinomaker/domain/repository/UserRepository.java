@@ -5,27 +5,22 @@ import com.example.kinomaker.domain.model.Movie;
 import com.example.kinomaker.domain.model.User;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.DocumentSnapshot;
 
-public interface ApplicationRepository {
+import io.reactivex.rxjava3.core.Single;
 
-    public void loginUser(
+public interface UserRepository {
+
+    public Single<Boolean> loginUser(
             String email,
-            String password,
-            OnSuccessListener<DocumentSnapshot> onSuccessListener,
-            OnFailureListener onFailureListener
+            String password
             );
 
-    public void registerUser(
-            User user,
-            OnSuccessListener<Void> onSuccessListener,
-            OnFailureListener onFailureListener
+    public Single<Boolean> registerUser(
+            User user
     );
 
-    public void getUserDataFromServer(
-            String email,
-            OnSuccessListener<DocumentSnapshot> onSuccess,
-            OnFailureListener onFailure
+    public Single<User> getUserDataFromServer(
+            String email
     );
 
     public void updateUserField(

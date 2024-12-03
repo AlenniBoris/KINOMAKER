@@ -1,4 +1,4 @@
-package com.example.kinomaker.presentation.loginscreen;
+package com.example.kinomaker.presentation.loginscreen.views;
 
 import android.os.Bundle;
 

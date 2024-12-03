@@ -11,9 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.kinomaker.R;
 import com.example.kinomaker.databinding.FragmentStartBinding;
-import com.example.kinomaker.presentation.loginscreen.LoginFragment;
+import com.example.kinomaker.presentation.loginscreen.views.LoginFragment;
 import com.example.kinomaker.presentation.registerscreen.RegisterFragment;
 
 import dagger.hilt.android.AndroidEntryPoint;
