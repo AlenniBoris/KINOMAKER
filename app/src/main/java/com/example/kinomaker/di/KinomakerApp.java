@@ -1,11 +1,11 @@
-package com.example.kinomaker;
+package com.example.kinomaker.di;
 
 import android.app.Application;
-
 import com.github.terrakok.cicerone.Cicerone;
 import com.github.terrakok.cicerone.Router;
-import com.google.firebase.auth.FirebaseAuth;
+import dagger.hilt.android.HiltAndroidApp;
 
+@HiltAndroidApp
 public class KinomakerApp extends Application {
 
     private static Cicerone<Router> cicerone;

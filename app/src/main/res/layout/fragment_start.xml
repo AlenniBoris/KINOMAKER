@@ -5,10 +5,10 @@
     android:layout_height="match_parent"
     tools:context=".presentation.startscreen.StartFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <FrameLayout
+        android:id="@+id/flStartFragmentContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="start" />
+        />
 
 </FrameLayout>
