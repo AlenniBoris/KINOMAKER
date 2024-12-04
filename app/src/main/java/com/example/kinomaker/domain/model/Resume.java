@@ -1,8 +1,6 @@
 package com.example.kinomaker.domain.model;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 public class Resume {
 
@@ -13,7 +11,8 @@ public class Resume {
     private ArrayList<Movie> movies;
     private String education;
 
-    public Resume() {}
+    public Resume() {
+    }
 
     public Resume(
             String profession,

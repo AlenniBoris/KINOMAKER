@@ -4,7 +4,6 @@ import com.example.kinomaker.domain.repository.UserRepository;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
 import io.reactivex.rxjava3.core.Single;
 
 @Singleton
@@ -15,11 +14,11 @@ public class LoginUserUseCase {
     @Inject
     public LoginUserUseCase(
             UserRepository userRepository
-    ){
+    ) {
         this.repository = userRepository;
     }
 
-    public Single<Boolean> invoke(String email, String password){
+    public Single<Boolean> invoke(String email, String password) {
         return repository.loginUser(email, password);
     }
 

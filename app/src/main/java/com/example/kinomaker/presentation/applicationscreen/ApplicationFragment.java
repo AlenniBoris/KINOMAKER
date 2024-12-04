@@ -1,14 +1,13 @@
 package com.example.kinomaker.presentation.applicationscreen;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.example.kinomaker.R;
 
@@ -17,7 +16,8 @@ import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class ApplicationFragment extends Fragment {
 
-    public ApplicationFragment() {}
+    public ApplicationFragment() {
+    }
 
 
     public static ApplicationFragment newInstance() {

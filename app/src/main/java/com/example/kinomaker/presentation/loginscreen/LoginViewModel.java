@@ -24,21 +24,21 @@ public class LoginViewModel extends ViewModel {
     @Inject
     public LoginViewModel(
             LoginUserUseCase loginUserUseCase
-    ){
+    ) {
         this.useCase = loginUserUseCase;
     }
 
-    public Observable<LoginStateHolder> getStateObservable(){
+    public Observable<LoginStateHolder> getStateObservable() {
         return state.hide();
     }
 
-    public void updateStateValue(String fieldName, String newValue){
+    public void updateStateValue(String fieldName, String newValue) {
         LoginStateHolder updatedState = state.getValue();
-        switch (fieldName){
-            case "enteredEmail" : {
+        switch (fieldName) {
+            case "enteredEmail": {
                 updatedState.setEnteredEmail(newValue);
             }
-            case "enteredPassword" : {
+            case "enteredPassword": {
                 updatedState.setEnteredPassword(newValue);
             }
             default: {
@@ -49,7 +49,7 @@ public class LoginViewModel extends ViewModel {
         state.onNext(updatedState);
     }
 
-    public void loginUser(String email, String password){
+    public void loginUser(String email, String password) {
         useCase.invoke(email, password)
                 .subscribe(new SingleObserver<Boolean>() {
 

@@ -1,15 +1,14 @@
 package com.example.kinomaker.presentation.startscreen;
 
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import com.example.kinomaker.databinding.FragmentStartBinding;
 import com.example.kinomaker.presentation.loginscreen.views.LoginFragment;
@@ -25,7 +24,8 @@ public class StartFragment extends Fragment {
     private String neededScreen;
     private String userEmail;
 
-    public StartFragment() {}
+    public StartFragment() {
+    }
 
     public static StartFragment newInstance() {
         return new StartFragment();
@@ -47,7 +47,7 @@ public class StartFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        if (savedInstanceState == null){
+        if (savedInstanceState == null) {
             neededScreen = getArguments() == null ? "" : getArguments().getString("needed_screen_to_show");
             Log.d("START_SCREEN", neededScreen.toString());
             userEmail = getArguments() == null ? "" : getArguments().getString("user_entered_login");
@@ -55,7 +55,7 @@ public class StartFragment extends Fragment {
             Bundle bundle = new Bundle();
             bundle.putString("user_login", userEmail);
 
-            if (neededScreen.equals("login")){
+            if (neededScreen.equals("login")) {
 
                 LoginFragment loginFragment = new LoginFragment();
                 loginFragment.setArguments(bundle);
@@ -67,8 +67,7 @@ public class StartFragment extends Fragment {
                                 "StartFragment"
                         )
                         .commit();
-            }
-            else{
+            } else {
 
                 RegisterFragment registerFragment = new RegisterFragment();
                 registerFragment.setArguments(bundle);

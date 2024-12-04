@@ -2,8 +2,6 @@ package com.example.kinomaker.di;
 
 import com.example.kinomaker.data.database.ApplicationDatabase;
 
-import org.checkerframework.checker.units.qual.A;
-
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -17,7 +15,7 @@ public class Injector {
 
     @Provides
     @Singleton
-    public ApplicationDatabase provideApplicationDatabase(){
+    public ApplicationDatabase provideApplicationDatabase() {
         return new ApplicationDatabase();
     }
 

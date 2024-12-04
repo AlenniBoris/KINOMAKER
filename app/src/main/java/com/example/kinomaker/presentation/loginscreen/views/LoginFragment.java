@@ -1,23 +1,19 @@
 package com.example.kinomaker.presentation.loginscreen.views;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
-import android.view.KeyEvent;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.example.kinomaker.R;
 import com.example.kinomaker.databinding.FragmentLoginBinding;
 import com.example.kinomaker.di.KinomakerApp;
 import com.example.kinomaker.navigation.Screen;
@@ -36,7 +32,8 @@ public class LoginFragment extends Fragment {
     private LoginViewModel viewModel;
     private String comingEmail;
 
-    public LoginFragment() {}
+    public LoginFragment() {
+    }
 
     public static LoginFragment newInstance() {
         return new LoginFragment();
@@ -53,7 +50,7 @@ public class LoginFragment extends Fragment {
 
         viewModel = new ViewModelProvider(this).get(LoginViewModel.class);
 
-        comingEmail = getArguments().getString("user_login","");
+        comingEmail = getArguments().getString("user_login", "");
 
         binding = FragmentLoginBinding.inflate(inflater, container, false);
         return binding.getRoot();
@@ -63,7 +60,7 @@ public class LoginFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        if (!comingEmail.isEmpty()){
+        if (!comingEmail.isEmpty()) {
             binding.etEmail.setText(comingEmail);
             viewModel.updateStateValue("enteredEmail", comingEmail);
         }
@@ -75,7 +72,7 @@ public class LoginFragment extends Fragment {
         observeScreenState();
     }
 
-    private TextWatcher getTextWatcher(String aim){
+    private TextWatcher getTextWatcher(String aim) {
         return new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -94,7 +91,7 @@ public class LoginFragment extends Fragment {
         };
     }
 
-    public void observeScreenState(){
+    public void observeScreenState() {
         viewModel.getStateObservable()
                 .subscribe(new Observer<LoginStateHolder>() {
 
@@ -122,19 +119,19 @@ public class LoginFragment extends Fragment {
                 });
     }
 
-    public void updateUi(LoginStateHolder state){
-        if (state.isUserIsAdded()){
+    public void updateUi(LoginStateHolder state) {
+        if (state.isUserIsAdded()) {
             KinomakerApp.getRouter().newRootScreen(Screen.ApplicationFragmentScreen());
             return;
         }
-        if (state.isErrorHappened()){
+        if (state.isErrorHappened()) {
             Toast.makeText(
-                requireContext(),
-                state.getErrorText(),
-                Toast.LENGTH_SHORT
+                    requireContext(),
+                    state.getErrorText(),
+                    Toast.LENGTH_SHORT
             ).show();
 
-            viewModel.updateStateValue("","");
+            viewModel.updateStateValue("", "");
         }
 
         binding.btnSignIn.setOnClickListener(v -> {

@@ -5,14 +5,13 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentFactory;
-
 import com.example.kinomaker.presentation.applicationscreen.ApplicationFragment;
 import com.example.kinomaker.presentation.startscreen.StartFragment;
 import com.github.terrakok.cicerone.androidx.FragmentScreen;
 
 public class Screen {
 
-    public static FragmentScreen StartFragmentScreen(String neededScreen, String userEmail){
+    public static FragmentScreen StartFragmentScreen(String neededScreen, String userEmail) {
         return new FragmentScreen() {
             @Override
             public boolean getClearContainer() {
@@ -41,7 +40,7 @@ public class Screen {
         };
     }
 
-    public static FragmentScreen ApplicationFragmentScreen(){
+    public static FragmentScreen ApplicationFragmentScreen() {
         return new FragmentScreen() {
             @Override
             public boolean getClearContainer() {

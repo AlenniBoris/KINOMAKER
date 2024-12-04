@@ -16,7 +16,8 @@ public class Mapper {
 
             ArrayList<Movie> movies = new ArrayList<>();
             if (resumeMap.get("movies") instanceof List) {
-                List<Map<String, Object>> moviesList = (List<Map<String, Object>>) resumeMap.get("movies");
+                List<Map<String, Object>> moviesList =
+                        (List<Map<String, Object>>) resumeMap.get("movies");
                 for (Map<String, Object> movieMap : moviesList) {
                     movies.add(new Movie(
                             movieMap.get("year") != null ? ((Number) movieMap.get("year")).intValue() : 0,

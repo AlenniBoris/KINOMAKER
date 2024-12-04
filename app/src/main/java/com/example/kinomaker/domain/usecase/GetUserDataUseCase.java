@@ -12,11 +12,11 @@ public class GetUserDataUseCase {
     @Inject
     public GetUserDataUseCase(
             UserRepository userRepository
-    ){
+    ) {
         this.repository = userRepository;
     }
 
-    public Single<User> invoke(String email, String password){
+    public Single<User> invoke(String email, String password) {
         return repository.getUserDataFromServer(email);
     }
 

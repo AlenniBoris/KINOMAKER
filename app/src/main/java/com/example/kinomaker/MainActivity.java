@@ -29,8 +29,8 @@ public class MainActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
-        if (savedInstanceState == null){
-            if (currentUser == null){
+        if (savedInstanceState == null) {
+            if (currentUser == null) {
                 KinomakerApp.getRouter().newRootScreen(Screen.StartFragmentScreen("login", ""));
             } else {
                 KinomakerApp.getRouter().newRootScreen(Screen.ApplicationFragmentScreen());

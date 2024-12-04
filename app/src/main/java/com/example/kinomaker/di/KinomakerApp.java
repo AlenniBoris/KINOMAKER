@@ -1,10 +1,8 @@
 package com.example.kinomaker.di;
 
 import android.app.Application;
-
 import com.github.terrakok.cicerone.Cicerone;
 import com.github.terrakok.cicerone.Router;
-
 import dagger.hilt.android.HiltAndroidApp;
 
 @HiltAndroidApp

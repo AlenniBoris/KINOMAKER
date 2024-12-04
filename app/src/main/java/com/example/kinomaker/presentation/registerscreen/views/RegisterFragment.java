@@ -1,12 +1,6 @@
 package com.example.kinomaker.presentation.registerscreen.views;
 
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -15,13 +9,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.kinomaker.R;
-import com.example.kinomaker.databinding.FragmentLoginBinding;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+
 import com.example.kinomaker.databinding.FragmentRegisterBinding;
 import com.example.kinomaker.di.KinomakerApp;
 import com.example.kinomaker.navigation.Screen;
-import com.example.kinomaker.presentation.loginscreen.LoginStateHolder;
-import com.example.kinomaker.presentation.loginscreen.LoginViewModel;
 import com.example.kinomaker.presentation.registerscreen.RegisterStateHolder;
 import com.example.kinomaker.presentation.registerscreen.RegisterViewModel;
 
@@ -36,7 +31,8 @@ public class RegisterFragment extends Fragment {
     private RegisterViewModel viewModel;
     private String comingEmail;
 
-    public RegisterFragment() {}
+    public RegisterFragment() {
+    }
 
     public static RegisterFragment newInstance() {
         return new RegisterFragment();
@@ -53,7 +49,7 @@ public class RegisterFragment extends Fragment {
 
         binding = FragmentRegisterBinding.inflate(inflater, container, false);
 
-        comingEmail = getArguments().getString("user_login","");
+        comingEmail = getArguments().getString("user_login", "");
 
         viewModel = new ViewModelProvider(this).get(RegisterViewModel.class);
 
@@ -73,7 +69,7 @@ public class RegisterFragment extends Fragment {
         observeScreenState();
     }
 
-    private TextWatcher getTextWatcher(String aim){
+    private TextWatcher getTextWatcher(String aim) {
         return new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -92,7 +88,7 @@ public class RegisterFragment extends Fragment {
         };
     }
 
-    public void observeScreenState(){
+    public void observeScreenState() {
         viewModel.getStateObservable()
                 .subscribe(new Observer<RegisterStateHolder>() {
 
@@ -120,20 +116,20 @@ public class RegisterFragment extends Fragment {
                 });
     }
 
-    public void updateUi(RegisterStateHolder state){
-        if (state.isUserWasRegistered()){
+    public void updateUi(RegisterStateHolder state) {
+        if (state.isUserWasRegistered()) {
             KinomakerApp.getRouter().newRootScreen(Screen.ApplicationFragmentScreen());
             return;
         }
 
-        if (state.getErrorHappened()){
+        if (state.getErrorHappened()) {
             Toast.makeText(
                     requireContext(),
                     state.getErrorText(),
                     Toast.LENGTH_SHORT
             ).show();
 
-            viewModel.updateStateValue("","");
+            viewModel.updateStateValue("", "");
         }
 
         binding.btnRegister.setOnClickListener(v -> {

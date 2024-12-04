@@ -1,7 +1,5 @@
 package com.example.kinomaker.domain.repository;
 
-import com.example.kinomaker.domain.model.JobApplication;
-import com.example.kinomaker.domain.model.Movie;
 import com.example.kinomaker.domain.model.User;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -13,7 +11,7 @@ public interface UserRepository {
     public Single<Boolean> loginUser(
             String email,
             String password
-            );
+    );
 
     public Single<Boolean> registerUser(
             User user

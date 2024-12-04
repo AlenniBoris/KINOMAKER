@@ -1,7 +1,5 @@
 package com.example.kinomaker.domain.model;
 
-import java.util.ArrayList;
-
 public class User {
 
     private String firstName;
@@ -14,10 +12,9 @@ public class User {
     private String city;
     private String gender;
     private boolean isCompany;
-//    private Resume resume;
-//    private ArrayList<JobApplication> applications;
 
-    public User() {}
+    public User() {
+    }
 
     public User(
             String firstName,
@@ -30,8 +27,6 @@ public class User {
             String city,
             String gender,
             boolean isCompany
-//            Resume resume,
-//            ArrayList<JobApplication> applications
     ) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -43,8 +38,6 @@ public class User {
         this.city = city;
         this.gender = gender;
         this.isCompany = isCompany;
-//        this.resume = resume;
-//        this.applications = applications;
     }
 
     public boolean isCompany() {
@@ -126,20 +119,4 @@ public class User {
     public void setGender(String gender) {
         this.gender = gender;
     }
-
-//    public Resume getResume() {
-//        return resume;
-//    }
-//
-//    public void setResume(Resume resume) {
-//        this.resume = resume;
-//    }
-//
-//    public ArrayList<JobApplication> getApplications() {
-//        return applications;
-//    }
-//
-//    public void setApplications(ArrayList<JobApplication> applications) {
-//        this.applications = applications;
-//    }
 }
