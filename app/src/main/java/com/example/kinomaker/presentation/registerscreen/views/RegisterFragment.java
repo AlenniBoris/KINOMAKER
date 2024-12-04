@@ -1,4 +1,4 @@
-package com.example.kinomaker.presentation.loginscreen.views;
+package com.example.kinomaker.presentation.registerscreen.views;
 
 import android.os.Bundle;
 
@@ -10,36 +10,36 @@ import androidx.lifecycle.ViewModelProvider;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.kinomaker.R;
 import com.example.kinomaker.databinding.FragmentLoginBinding;
+import com.example.kinomaker.databinding.FragmentRegisterBinding;
 import com.example.kinomaker.di.KinomakerApp;
 import com.example.kinomaker.navigation.Screen;
 import com.example.kinomaker.presentation.loginscreen.LoginStateHolder;
 import com.example.kinomaker.presentation.loginscreen.LoginViewModel;
+import com.example.kinomaker.presentation.registerscreen.RegisterStateHolder;
+import com.example.kinomaker.presentation.registerscreen.RegisterViewModel;
 
 import dagger.hilt.android.AndroidEntryPoint;
 import io.reactivex.rxjava3.core.Observer;
 import io.reactivex.rxjava3.disposables.Disposable;
 
-
 @AndroidEntryPoint
-public class LoginFragment extends Fragment {
+public class RegisterFragment extends Fragment {
 
-    private FragmentLoginBinding binding;
-    private LoginViewModel viewModel;
+    private FragmentRegisterBinding binding;
+    private RegisterViewModel viewModel;
     private String comingEmail;
 
-    public LoginFragment() {}
+    public RegisterFragment() {}
 
-    public static LoginFragment newInstance() {
-        return new LoginFragment();
+    public static RegisterFragment newInstance() {
+        return new RegisterFragment();
     }
 
     @Override
@@ -48,14 +48,15 @@ public class LoginFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        viewModel = new ViewModelProvider(this).get(LoginViewModel.class);
+        binding = FragmentRegisterBinding.inflate(inflater, container, false);
 
         comingEmail = getArguments().getString("user_login","");
 
-        binding = FragmentLoginBinding.inflate(inflater, container, false);
+        viewModel = new ViewModelProvider(this).get(RegisterViewModel.class);
+
         return binding.getRoot();
     }
 
@@ -63,14 +64,11 @@ public class LoginFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        if (!comingEmail.isEmpty()){
-            binding.etEmail.setText(comingEmail);
-            viewModel.updateStateValue("enteredEmail", comingEmail);
-        }
-
-        binding.etEmail.addTextChangedListener(getTextWatcher("enteredEmail"));
-
-        binding.etPassword.addTextChangedListener(getTextWatcher("enteredPassword"));
+        binding.etName.addTextChangedListener(getTextWatcher("firstName"));
+        binding.etSurname.addTextChangedListener(getTextWatcher("lastName"));
+        binding.etEmail.addTextChangedListener(getTextWatcher("email"));
+        binding.etPhoneNumbber.addTextChangedListener(getTextWatcher("phoneNumber"));
+        binding.etPassword.addTextChangedListener(getTextWatcher("password"));
 
         observeScreenState();
     }
@@ -96,7 +94,7 @@ public class LoginFragment extends Fragment {
 
     public void observeScreenState(){
         viewModel.getStateObservable()
-                .subscribe(new Observer<LoginStateHolder>() {
+                .subscribe(new Observer<RegisterStateHolder>() {
 
                     Disposable disposable;
 
@@ -106,13 +104,13 @@ public class LoginFragment extends Fragment {
                     }
 
                     @Override
-                    public void onNext(LoginStateHolder state) {
+                    public void onNext(RegisterStateHolder state) {
                         updateUi(state);
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.e("ERROR RXJAVA", "ERROR LOGIN SCREEN: \n" + e.getMessage());
+                        Log.e("ERROR RXJAVA", "ERROR REGISTER SCREEN: \n" + e.getMessage());
                     }
 
                     @Override
@@ -122,32 +120,33 @@ public class LoginFragment extends Fragment {
                 });
     }
 
-    public void updateUi(LoginStateHolder state){
-        if (state.isUserIsAdded()){
+    public void updateUi(RegisterStateHolder state){
+        if (state.isUserWasRegistered()){
             KinomakerApp.getRouter().newRootScreen(Screen.ApplicationFragmentScreen());
             return;
         }
-        if (state.isErrorHappened()){
+
+        if (state.getErrorHappened()){
             Toast.makeText(
-                requireContext(),
-                state.getErrorText(),
-                Toast.LENGTH_SHORT
+                    requireContext(),
+                    state.getErrorText(),
+                    Toast.LENGTH_SHORT
             ).show();
 
             viewModel.updateStateValue("","");
         }
 
-        binding.btnSignIn.setOnClickListener(v -> {
-            viewModel.loginUser(state.getEnteredEmail(), state.getEnteredPassword());
-        });
-
         binding.btnRegister.setOnClickListener(v -> {
-            KinomakerApp.getRouter().newRootScreen(Screen.StartFragmentScreen(
-                    "register",
-                    state.getEnteredEmail()
-            ));
+            viewModel.registerUser();
         });
 
-
+        binding.btnSignIn.setOnClickListener(v -> {
+            KinomakerApp.getRouter().newRootScreen(
+                    Screen.StartFragmentScreen(
+                            "login",
+                            state.getEmail()
+                    )
+            );
+        });
     }
 }

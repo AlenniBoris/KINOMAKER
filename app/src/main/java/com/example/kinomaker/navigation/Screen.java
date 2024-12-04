@@ -12,11 +12,11 @@ import com.github.terrakok.cicerone.androidx.FragmentScreen;
 
 public class Screen {
 
-    public static FragmentScreen StartFragmentScreen(String neededScreen, String userLogin){
+    public static FragmentScreen StartFragmentScreen(String neededScreen, String userEmail){
         return new FragmentScreen() {
             @Override
             public boolean getClearContainer() {
-                return false;
+                return true;
             }
 
             @NonNull
@@ -26,7 +26,7 @@ public class Screen {
 
                 Bundle bundle = new Bundle();
                 bundle.putString("needed_screen_to_show", neededScreen);
-                bundle.putString("user_registered_login", userLogin);
+                bundle.putString("user_entered_email", userEmail);
 
                 fragment.setArguments(bundle);
 
@@ -45,7 +45,7 @@ public class Screen {
         return new FragmentScreen() {
             @Override
             public boolean getClearContainer() {
-                return false;
+                return true;
             }
 
             @NonNull

@@ -2,6 +2,7 @@ package com.example.kinomaker.domain.model;
 
 public class JobApplication {
 
+    private String email;
     private String position;
     private String experience;
     private int salary;
@@ -11,18 +12,22 @@ public class JobApplication {
     public JobApplication() {}
 
     public JobApplication(
+            String email,
             String position,
             String experience,
             int salary,
             boolean formalization,
             String description
     ) {
+        this.email = email;
         this.position = position;
         this.experience = experience;
         this.salary = salary;
         this.formalization = formalization;
         this.description = description;
     }
+
+
 
     public String getPosition() {
         return position;

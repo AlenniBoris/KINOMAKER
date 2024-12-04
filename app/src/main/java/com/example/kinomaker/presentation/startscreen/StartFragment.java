@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 
 import com.example.kinomaker.databinding.FragmentStartBinding;
 import com.example.kinomaker.presentation.loginscreen.views.LoginFragment;
-import com.example.kinomaker.presentation.registerscreen.RegisterFragment;
+import com.example.kinomaker.presentation.registerscreen.views.RegisterFragment;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -23,7 +23,7 @@ public class StartFragment extends Fragment {
 
     private FragmentStartBinding binding;
     private String neededScreen;
-    private String userLogin;
+    private String userEmail;
 
     public StartFragment() {}
 
@@ -50,15 +50,15 @@ public class StartFragment extends Fragment {
         if (savedInstanceState == null){
             neededScreen = getArguments() == null ? "" : getArguments().getString("needed_screen_to_show");
             Log.d("START_SCREEN", neededScreen.toString());
-            userLogin = getArguments() == null ? "" : getArguments().getString("user_registered_login");
+            userEmail = getArguments() == null ? "" : getArguments().getString("user_entered_login");
+
+            Bundle bundle = new Bundle();
+            bundle.putString("user_login", userEmail);
 
             if (neededScreen.equals("login")){
 
-                Bundle loginBundle = new Bundle();
-                loginBundle.putString("user_login", userLogin);
-
                 LoginFragment loginFragment = new LoginFragment();
-                loginFragment.setArguments(loginBundle);
+                loginFragment.setArguments(bundle);
 
                 getParentFragmentManager().beginTransaction()
                         .replace(
@@ -69,10 +69,14 @@ public class StartFragment extends Fragment {
                         .commit();
             }
             else{
+
+                RegisterFragment registerFragment = new RegisterFragment();
+                registerFragment.setArguments(bundle);
+
                 getParentFragmentManager().beginTransaction()
                         .replace(
                                 binding.flStartFragmentContainer.getId(),
-                                new RegisterFragment(),
+                                registerFragment,
                                 "StartFragment"
                         )
                         .commit();

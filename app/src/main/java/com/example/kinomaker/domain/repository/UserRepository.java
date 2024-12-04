@@ -31,18 +31,4 @@ public interface UserRepository {
             OnFailureListener onFailureListener
     );
 
-    public void addNewMovieToResume(
-            String email,
-            Movie movie,
-            OnSuccessListener<Void> onSuccessListener,
-            OnFailureListener onFailureListener
-    );
-
-    public void addNewJobApplication(
-            String email,
-            JobApplication jobApplication,
-            OnSuccessListener<Void> onSuccessListener,
-            OnFailureListener onFailureListener
-    );
-
 }

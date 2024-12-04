@@ -6,11 +6,11 @@ import java.util.Map;
 
 public class Resume {
 
+    private String email;
     private String profession;
     private String phone;
-    private String email;
     private String workExperience;
-    private ArrayList<Movie> movies; // Список фильмов
+    private ArrayList<Movie> movies;
     private String education;
 
     public Resume() {}

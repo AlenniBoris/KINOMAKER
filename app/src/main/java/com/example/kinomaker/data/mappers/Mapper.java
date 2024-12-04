@@ -14,7 +14,6 @@ public class Mapper {
         if (resumeObject instanceof Map) {
             Map<String, Object> resumeMap = (Map<String, Object>) resumeObject;
 
-            // Преобразуем список фильмов
             ArrayList<Movie> movies = new ArrayList<>();
             if (resumeMap.get("movies") instanceof List) {
                 List<Map<String, Object>> moviesList = (List<Map<String, Object>>) resumeMap.get("movies");
@@ -27,7 +26,6 @@ public class Mapper {
                 }
             }
 
-            // Создаём и возвращаем объект Resume
             return new Resume(
                     (String) resumeMap.get("profession"),
                     (String) resumeMap.get("phone"),
@@ -48,6 +46,7 @@ public class Mapper {
             for (Map<String, Object> vacancyMap : vacanciesList) {
                 try {
                     JobApplication jobApplication = new JobApplication(
+                            (String) vacancyMap.get("email"),
                             (String) vacancyMap.get("position"),
                             (String) vacancyMap.get("experience"),
                             vacancyMap.get("salary") != null ? ((Number) vacancyMap.get("salary")).intValue() : 0,
@@ -56,7 +55,7 @@ public class Mapper {
                     );
                     jobApplications.add(jobApplication);
                 } catch (Exception e) {
-                    e.printStackTrace(); // Логируем ошибку, если данные некорректны
+                    e.printStackTrace();
                 }
             }
         }

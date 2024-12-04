@@ -1,11 +1,15 @@
 package com.example.kinomaker.data.repository;
 
+import static com.example.kinomaker.utils.ExtraFunctions.hasEmptyFields;
+import static com.example.kinomaker.utils.ExtraFunctions.stringIsValidatedEmail;
+
 import com.example.kinomaker.data.database.ApplicationDatabase;
 import com.example.kinomaker.data.mappers.Mapper;
 import com.example.kinomaker.domain.model.JobApplication;
 import com.example.kinomaker.domain.model.Movie;
 import com.example.kinomaker.domain.model.User;
 import com.example.kinomaker.domain.repository.UserRepository;
+import com.example.kinomaker.utils.ExtraFunctions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -14,7 +18,10 @@ import com.google.firebase.firestore.FieldValue;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.core.Scheduler;
 import io.reactivex.rxjava3.core.Single;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 
 @Singleton
 public class UserRepositoryImpl implements UserRepository {
@@ -34,6 +41,17 @@ public class UserRepositoryImpl implements UserRepository {
             String password
     ) {
        return Single.create(emitter -> {
+
+           if (!stringIsValidatedEmail(email)){
+               emitter.onError(new Exception("Your entered email is not email-typed"));
+               return;
+           }
+
+           if (password.isEmpty()){
+               emitter.onError(new Exception("Your entered password is empty"));
+               return;
+           }
+
            database.getDb().collection("users")
                    .document(email)
                    .get()
@@ -58,6 +76,22 @@ public class UserRepositoryImpl implements UserRepository {
             User user
     ) {
        return Single.create(emitter -> {
+
+           if (hasEmptyFields(user)){
+               emitter.onError(new Exception("You have to enter all fields"));
+               return;
+           }
+
+           if (!stringIsValidatedEmail(user.getEmail())){
+               emitter.onError(new Exception("Your entered email is not email-typed"));
+               return;
+           }
+
+           if (user.getPassword().isEmpty()){
+               emitter.onError(new Exception("Your entered password is empty"));
+               return;
+           }
+
            database.getDb().collection("users")
                    .document(user.getEmail())
                    .get()
@@ -68,12 +102,7 @@ public class UserRepositoryImpl implements UserRepository {
                            database.getDb().collection("users")
                                    .document(user.getEmail())
                                    .set(user)
-                                   .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                       @Override
-                                       public void onSuccess(Void unused) {
-                                           emitter.onSuccess(true);
-                                       }
-                                   })
+                                   .addOnSuccessListener(unused -> emitter.onSuccess(true))
                                    .addOnFailureListener(emitter::onError);
                        }
                    });
@@ -88,9 +117,8 @@ public class UserRepositoryImpl implements UserRepository {
             database.getDb().collection("users")
                     .document(email)
                     .get()
-                    .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                        @Override
-                        public void onSuccess(DocumentSnapshot snapshot) {
+                    .addOnSuccessListener(snapshot ->  {
+                        try {
                             User currentUser = new User(
                                 snapshot.getString("firstName"),
                                 snapshot.getString("lastName"),
@@ -101,11 +129,14 @@ public class UserRepositoryImpl implements UserRepository {
                                 snapshot.getString("country"),
                                 snapshot.getString("city"),
                                 snapshot.getString("gender"),
-                                Mapper.toResume(snapshot.get("resume")),
-                                Mapper.toVacancyList(snapshot.get("applications"))
+                                Boolean.TRUE.equals(snapshot.getBoolean("isCompany"))
+//                                Mapper.toResume(snapshot.get("resume")),
+//                                Mapper.toVacancyList(snapshot.get("applications"))
                             );
 
                             emitter.onSuccess(currentUser);
+                        } catch (Exception e){
+                            emitter.onError(e);
                         }
                     })
                     .addOnFailureListener(emitter::onError);
@@ -127,31 +158,4 @@ public class UserRepositoryImpl implements UserRepository {
                 .addOnFailureListener(onFailureListener);
     }
 
-    @Override
-    public void addNewMovieToResume(
-            String email,
-            Movie movie,
-            OnSuccessListener<Void> onSuccessListener,
-            OnFailureListener onFailureListener
-    ) {
-        database.getDb().collection("users")
-                .document(email)
-                .update("resume.movies", FieldValue.arrayUnion(movie))
-                .addOnSuccessListener(onSuccessListener)
-                .addOnFailureListener(onFailureListener);
-    }
-
-    @Override
-    public void addNewJobApplication(
-            String email,
-            JobApplication jobApplication,
-            OnSuccessListener<Void> onSuccessListener,
-            OnFailureListener onFailureListener
-    ) {
-        database.getDb().collection("users")
-                .document(email)
-                .update("applications", FieldValue.arrayUnion(jobApplication))
-                .addOnSuccessListener(onSuccessListener)
-                .addOnFailureListener(onFailureListener);
-    }
 }

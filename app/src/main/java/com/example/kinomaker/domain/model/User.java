@@ -13,8 +13,9 @@ public class User {
     private String country;
     private String city;
     private String gender;
-    private Resume resume;
-    private ArrayList<JobApplication> applications;
+    private boolean isCompany;
+//    private Resume resume;
+//    private ArrayList<JobApplication> applications;
 
     public User() {}
 
@@ -28,8 +29,9 @@ public class User {
             String country,
             String city,
             String gender,
-            Resume resume,
-            ArrayList<JobApplication> applications
+            boolean isCompany
+//            Resume resume,
+//            ArrayList<JobApplication> applications
     ) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -40,8 +42,17 @@ public class User {
         this.country = country;
         this.city = city;
         this.gender = gender;
-        this.resume = resume;
-        this.applications = applications;
+        this.isCompany = isCompany;
+//        this.resume = resume;
+//        this.applications = applications;
+    }
+
+    public boolean isCompany() {
+        return isCompany;
+    }
+
+    public void setCompany(boolean company) {
+        isCompany = company;
     }
 
     public String getFirstName() {
@@ -116,19 +127,19 @@ public class User {
         this.gender = gender;
     }
 
-    public Resume getResume() {
-        return resume;
-    }
-
-    public void setResume(Resume resume) {
-        this.resume = resume;
-    }
-
-    public ArrayList<JobApplication> getApplications() {
-        return applications;
-    }
-
-    public void setApplications(ArrayList<JobApplication> applications) {
-        this.applications = applications;
-    }
+//    public Resume getResume() {
+//        return resume;
+//    }
+//
+//    public void setResume(Resume resume) {
+//        this.resume = resume;
+//    }
+//
+//    public ArrayList<JobApplication> getApplications() {
+//        return applications;
+//    }
+//
+//    public void setApplications(ArrayList<JobApplication> applications) {
+//        this.applications = applications;
+//    }
 }
