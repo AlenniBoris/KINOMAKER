@@ -87,6 +87,11 @@ public class UserRepositoryImpl implements UserRepository {
                return;
            }
 
+           if (user.getPassword().length() < 6){
+               emitter.onError(new Exception("Password should be at least 6 digits"));
+               return;
+           }
+
            if (user.getPassword().isEmpty()){
                emitter.onError(new Exception("Your entered password is empty"));
                return;
