@@ -16,7 +16,7 @@ public class GetUserDataUseCase {
         this.repository = userRepository;
     }
 
-    public Single<User> invoke(String email, String password) {
+    public Single<User> invoke(String email) {
         return repository.getUserDataFromServer(email);
     }
 

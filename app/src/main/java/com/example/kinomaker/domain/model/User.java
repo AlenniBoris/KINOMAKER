@@ -11,7 +11,7 @@ public class User {
     private String country;
     private String city;
     private String gender;
-    private boolean isCompany;
+    private String isCompany;
 
     public User() {
     }
@@ -26,7 +26,7 @@ public class User {
             String country,
             String city,
             String gender,
-            boolean isCompany
+            String isCompany
     ) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -40,11 +40,11 @@ public class User {
         this.isCompany = isCompany;
     }
 
-    public boolean isCompany() {
+    public String isCompany() {
         return isCompany;
     }
 
-    public void setCompany(boolean company) {
+    public void setCompany(String company) {
         isCompany = company;
     }
 

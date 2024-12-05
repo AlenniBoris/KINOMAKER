@@ -3,6 +3,8 @@ package com.example.kinomaker.data.repository;
 import static com.example.kinomaker.utils.ExtraFunctions.hasEmptyFields;
 import static com.example.kinomaker.utils.ExtraFunctions.stringIsValidatedEmail;
 
+import androidx.annotation.NonNull;
+
 import com.example.kinomaker.data.database.ApplicationDatabase;
 import com.example.kinomaker.data.mappers.Mapper;
 import com.example.kinomaker.domain.model.JobApplication;
@@ -10,8 +12,10 @@ import com.example.kinomaker.domain.model.Movie;
 import com.example.kinomaker.domain.model.User;
 import com.example.kinomaker.domain.repository.UserRepository;
 import com.example.kinomaker.utils.ExtraFunctions;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 
@@ -19,6 +23,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Scheduler;
 import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.schedulers.Schedulers;
@@ -134,7 +139,7 @@ public class UserRepositoryImpl implements UserRepository {
                                 snapshot.getString("country"),
                                 snapshot.getString("city"),
                                 snapshot.getString("gender"),
-                                Boolean.TRUE.equals(snapshot.getBoolean("isCompany"))
+                                snapshot.getString("isCompany")
 //                                Mapper.toResume(snapshot.get("resume")),
 //                                Mapper.toVacancyList(snapshot.get("applications"))
                             );
@@ -149,18 +154,20 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public void updateUserField(
+    public Completable updateUserField(
             String email,
             String field,
-            Object value,
-            OnSuccessListener<Void> onSuccessListener,
-            OnFailureListener onFailureListener
+            Object value
     ) {
-        database.getDb().collection("users")
-                .document(email)
-                .update(field, value)
-                .addOnSuccessListener(onSuccessListener)
-                .addOnFailureListener(onFailureListener);
+        return Completable.create(emitter -> {
+            database.getDb().collection("users")
+                    .document(email)
+                    .update(field, value)
+                    .addOnSuccessListener(unused -> {
+                        emitter.onComplete();
+                    })
+                    .addOnFailureListener(emitter::onError);
+        });
     }
 
 }

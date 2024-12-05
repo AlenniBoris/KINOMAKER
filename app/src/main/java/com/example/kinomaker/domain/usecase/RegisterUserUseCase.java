@@ -4,6 +4,7 @@ import com.example.kinomaker.domain.model.User;
 import com.example.kinomaker.domain.repository.UserRepository;
 import javax.inject.Inject;
 import io.reactivex.rxjava3.core.Single;
+
 public class RegisterUserUseCase {
 
     private UserRepository repository;

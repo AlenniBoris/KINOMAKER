@@ -4,6 +4,7 @@ import com.example.kinomaker.domain.model.User;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 
+import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Single;
 
 public interface UserRepository {
@@ -21,12 +22,10 @@ public interface UserRepository {
             String email
     );
 
-    public void updateUserField(
+    public Completable updateUserField(
             String email,
             String field,
-            Object value,
-            OnSuccessListener<Void> onSuccessListener,
-            OnFailureListener onFailureListener
+            Object value
     );
 
 }

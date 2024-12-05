@@ -5,7 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentFactory;
-import com.example.kinomaker.presentation.applicationscreen.ApplicationFragment;
+import com.example.kinomaker.presentation.applicationscreen.views.ApplicationFragment;
 import com.example.kinomaker.presentation.startscreen.StartFragment;
 import com.github.terrakok.cicerone.androidx.FragmentScreen;
 
