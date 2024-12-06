@@ -1,12 +1,11 @@
 package com.example.kinomaker.presentation.workingscreen;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.fragment.app.Fragment;
 
 import com.example.kinomaker.R;
 
@@ -14,10 +13,6 @@ import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public class WorkingFragment extends Fragment {
-
-
-    public WorkingFragment() {
-    }
 
     public static WorkingFragment newInstance() {
         return new WorkingFragment();

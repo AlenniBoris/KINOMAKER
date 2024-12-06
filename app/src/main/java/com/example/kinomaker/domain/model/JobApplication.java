@@ -9,9 +9,6 @@ public class JobApplication {
     private boolean formalization;
     private String description;
 
-    public JobApplication() {
-    }
-
     public JobApplication(
             String email,
             String position,
@@ -28,6 +25,13 @@ public class JobApplication {
         this.description = description;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     public String getPosition() {
         return position;

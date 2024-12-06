@@ -124,15 +124,15 @@ public class LoginFragment extends Fragment {
         if (state.isUserIsAdded()) {
             FirebaseAuth mAuth = FirebaseAuth.getInstance();
             mAuth.signInWithEmailAndPassword(state.getEnteredEmail(), state.getEnteredPassword())
-                            .addOnCompleteListener(task -> {
-                                if (task.isSuccessful()){
-                                    Toast.makeText(
-                                            requireActivity().getApplicationContext(),
-                                            "Welcome, " + state.getEnteredEmail(),
-                                            Toast.LENGTH_SHORT
-                                    ).show();
-                                }
-                            });
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(
+                                    requireActivity().getApplicationContext(),
+                                    "Welcome, " + state.getEnteredEmail(),
+                                    Toast.LENGTH_SHORT
+                            ).show();
+                        }
+                    });
 
             KinomakerApp.getRouter().newRootScreen(Screen.WorkingFragmentScreen());
             return;

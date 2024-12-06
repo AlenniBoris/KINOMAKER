@@ -1,24 +1,22 @@
 package com.example.kinomaker.presentation.choosingscreen.views;
 
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+
 import com.example.kinomaker.databinding.FragmentChoosingBinding;
 import com.example.kinomaker.di.KinomakerApp;
 import com.example.kinomaker.navigation.Screen;
 import com.example.kinomaker.presentation.choosingscreen.ChoosingStateHolder;
 import com.example.kinomaker.presentation.choosingscreen.ChoosingViewModel;
-import com.example.kinomaker.presentation.workingscreen.WorkingFragment;
 
 import dagger.hilt.android.AndroidEntryPoint;
 import io.reactivex.rxjava3.core.Observer;
@@ -63,7 +61,7 @@ public class ChoosingFragment extends Fragment {
         observeOnScreenState();
     }
 
-    private void observeOnScreenState(){
+    private void observeOnScreenState() {
         viewModel.getObservable()
                 .subscribe(new Observer<ChoosingStateHolder>() {
 
@@ -91,13 +89,12 @@ public class ChoosingFragment extends Fragment {
                 });
     }
 
-    private void updateUi(ChoosingStateHolder state){
+    private void updateUi(ChoosingStateHolder state) {
 
-        if (state.isTaskCompleted()){
+        if (state.isTaskCompleted()) {
             KinomakerApp.getRouter().newRootScreen(Screen.WorkingFragmentScreen());
-            Log.d("UPDATECOMPANY","Done");
         }
-        if (state.isErrorHappened()){
+        if (state.isErrorHappened()) {
             Toast.makeText(
                     requireContext(),
                     state.getErrorMessage(),
@@ -107,7 +104,7 @@ public class ChoosingFragment extends Fragment {
 
     }
 
-    private void btnAction(View view){
+    private void btnAction(View view) {
         if (view == binding.btnJobs) {
             viewModel.setUserCompany(0);
         } else {

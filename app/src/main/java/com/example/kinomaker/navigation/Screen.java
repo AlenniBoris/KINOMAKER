@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentFactory;
+
 import com.example.kinomaker.presentation.choosingscreen.views.ChoosingFragment;
 import com.example.kinomaker.presentation.startscreen.StartFragment;
 import com.example.kinomaker.presentation.workingscreen.WorkingFragment;
@@ -41,7 +42,7 @@ public class Screen {
         };
     }
 
-    public static FragmentScreen WorkingFragmentScreen(){
+    public static FragmentScreen WorkingFragmentScreen() {
         return new FragmentScreen() {
             @Override
             public boolean getClearContainer() {
@@ -62,7 +63,7 @@ public class Screen {
         };
     }
 
-    public static FragmentScreen ChoosingFragmentScreen(){
+    public static FragmentScreen ChoosingFragmentScreen() {
         return new FragmentScreen() {
             @Override
             public boolean getClearContainer() {

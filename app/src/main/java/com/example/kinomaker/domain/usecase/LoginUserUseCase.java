@@ -4,6 +4,7 @@ import com.example.kinomaker.domain.repository.UserRepository;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
 import io.reactivex.rxjava3.core.Single;
 
 @Singleton

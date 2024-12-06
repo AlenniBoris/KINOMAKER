@@ -5,7 +5,6 @@ import com.example.kinomaker.domain.repository.UserRepository;
 import javax.inject.Inject;
 
 import io.reactivex.rxjava3.core.Completable;
-import io.reactivex.rxjava3.core.Single;
 
 public class UpdateUserDataUseCase {
 
@@ -14,11 +13,11 @@ public class UpdateUserDataUseCase {
     @Inject
     public UpdateUserDataUseCase(
             UserRepository userRepository
-    ){
+    ) {
         this.userRepository = userRepository;
     }
 
-    public Completable invoke(String email, String field, Object value){
+    public Completable invoke(String email, String field, Object value) {
         return userRepository.updateUserField(email, field, value);
     }
 
