@@ -8,10 +8,12 @@ import com.example.kinomaker.domain.usecase.LoginUserUseCase;
 import javax.inject.Inject;
 
 import dagger.hilt.android.lifecycle.HiltViewModel;
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.core.SingleObserver;
 import io.reactivex.rxjava3.disposables.Disposable;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 import io.reactivex.rxjava3.subjects.BehaviorSubject;
 
 @HiltViewModel
@@ -51,6 +53,8 @@ public class LoginViewModel extends ViewModel {
 
     public void loginUser(String email, String password) {
         useCase.invoke(email, password)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new SingleObserver<Boolean>() {
 
                     Disposable disposable;

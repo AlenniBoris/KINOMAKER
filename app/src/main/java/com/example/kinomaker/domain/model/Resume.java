@@ -11,9 +11,6 @@ public class Resume {
     private ArrayList<Movie> movies;
     private String education;
 
-    public Resume() {
-    }
-
     public Resume(
             String profession,
             String phone,

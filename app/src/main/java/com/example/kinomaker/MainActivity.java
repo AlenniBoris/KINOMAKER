@@ -1,6 +1,7 @@
 package com.example.kinomaker;
 
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -17,7 +18,6 @@ import dagger.hilt.android.AndroidEntryPoint;
 public class MainActivity extends AppCompatActivity {
 
     private Navigator navigator;
-    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,14 +26,19 @@ public class MainActivity extends AppCompatActivity {
 
         navigator = new AppNavigator(this, R.id.flActivityContainer);
 
-        mAuth = FirebaseAuth.getInstance();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser();
 
         if (savedInstanceState == null) {
-            if (currentUser == null) {
+            if (user == null) {
                 KinomakerApp.getRouter().newRootScreen(Screen.StartFragmentScreen("login", ""));
             } else {
-                KinomakerApp.getRouter().newRootScreen(Screen.ApplicationFragmentScreen());
+                Toast.makeText(
+                        this,
+                        "Welcome back, " + user.getEmail(),
+                        Toast.LENGTH_SHORT
+                ).show();
+                KinomakerApp.getRouter().newRootScreen(Screen.WorkingFragmentScreen());
             }
         }
 
@@ -51,4 +56,8 @@ public class MainActivity extends AppCompatActivity {
         super.onPause();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
 }

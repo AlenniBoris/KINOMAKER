@@ -16,5 +16,4 @@ public class ExtraFunctions {
                 user.getPhoneNumber().isBlank() ||
                 user.getPassword().isBlank();
     }
-
 }

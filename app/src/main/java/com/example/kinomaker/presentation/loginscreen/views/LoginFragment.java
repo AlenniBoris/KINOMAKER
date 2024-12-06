@@ -19,6 +19,7 @@ import com.example.kinomaker.di.KinomakerApp;
 import com.example.kinomaker.navigation.Screen;
 import com.example.kinomaker.presentation.loginscreen.LoginStateHolder;
 import com.example.kinomaker.presentation.loginscreen.LoginViewModel;
+import com.google.firebase.auth.FirebaseAuth;
 
 import dagger.hilt.android.AndroidEntryPoint;
 import io.reactivex.rxjava3.core.Observer;
@@ -121,7 +122,19 @@ public class LoginFragment extends Fragment {
 
     public void updateUi(LoginStateHolder state) {
         if (state.isUserIsAdded()) {
-            KinomakerApp.getRouter().newRootScreen(Screen.ApplicationFragmentScreen());
+            FirebaseAuth mAuth = FirebaseAuth.getInstance();
+            mAuth.signInWithEmailAndPassword(state.getEnteredEmail(), state.getEnteredPassword())
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(
+                                    requireActivity().getApplicationContext(),
+                                    "Welcome, " + state.getEnteredEmail(),
+                                    Toast.LENGTH_SHORT
+                            ).show();
+                        }
+                    });
+
+            KinomakerApp.getRouter().newRootScreen(Screen.WorkingFragmentScreen());
             return;
         }
         if (state.isErrorHappened()) {

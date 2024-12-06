@@ -5,8 +5,10 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentFactory;
-import com.example.kinomaker.presentation.applicationscreen.ApplicationFragment;
+
+import com.example.kinomaker.presentation.choosingscreen.views.ChoosingFragment;
 import com.example.kinomaker.presentation.startscreen.StartFragment;
+import com.example.kinomaker.presentation.workingscreen.WorkingFragment;
 import com.github.terrakok.cicerone.androidx.FragmentScreen;
 
 public class Screen {
@@ -40,7 +42,7 @@ public class Screen {
         };
     }
 
-    public static FragmentScreen ApplicationFragmentScreen() {
+    public static FragmentScreen WorkingFragmentScreen() {
         return new FragmentScreen() {
             @Override
             public boolean getClearContainer() {
@@ -50,8 +52,7 @@ public class Screen {
             @NonNull
             @Override
             public Fragment createFragment(@NonNull FragmentFactory fragmentFactory) {
-                ApplicationFragment fragment = new ApplicationFragment();
-                return fragment;
+                return new WorkingFragment();
             }
 
             @NonNull
@@ -62,4 +63,24 @@ public class Screen {
         };
     }
 
+    public static FragmentScreen ChoosingFragmentScreen() {
+        return new FragmentScreen() {
+            @Override
+            public boolean getClearContainer() {
+                return true;
+            }
+
+            @NonNull
+            @Override
+            public Fragment createFragment(@NonNull FragmentFactory fragmentFactory) {
+                return new ChoosingFragment();
+            }
+
+            @NonNull
+            @Override
+            public String getScreenKey() {
+                return "";
+            }
+        };
+    }
 }
