@@ -36,7 +36,6 @@ public class ApplicationFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        viewModel = new ViewModelProvider(this).get(ApplicationFragmentViewModel.class);
         super.onCreate(savedInstanceState);
     }
 
@@ -45,6 +44,7 @@ public class ApplicationFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = FragmentApplicationBinding.inflate(inflater, container, false);
 
+        viewModel = new ViewModelProvider(this).get(ApplicationFragmentViewModel.class);
 
         return binding.getRoot();
     }
@@ -53,7 +53,10 @@ public class ApplicationFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        observeOnScreenState();
+        if (savedInstanceState == null){
+            observeOnScreenState();
+        }
+
     }
 
     private void observeOnScreenState(){
@@ -86,13 +89,20 @@ public class ApplicationFragment extends Fragment {
 
     private void updateUi(ApplicationFragmentStateHolder state){
 
-        if (!state.getCurrentUser().isCompany().isEmpty()){
-            getParentFragmentManager().beginTransaction()
-                    .replace(
-                            binding.flApplicationContainer.getId(),
-                            new WorkingFragment(),
-                            "Working fragment"
-                    ).commit();
+        Log.d("CURRENT", "user = "+(state.getCurrentUser() != null));
+        Log.d("CURRENT", "email = "+state.getCurrentUserEmailFromFirebaseAuth());
+
+        if (state.getCurrentUser() != null){
+            Log.d("CURRENT", "user after= "+(state.getCurrentUser() != null));
+            Log.d("CURRENT", "user company= "+(state.getCurrentUser().getCompany()));
+            if (!state.getCurrentUser().getCompany().isEmpty()){
+                getParentFragmentManager().beginTransaction()
+                        .replace(
+                                binding.flApplicationContainer.getId(),
+                                new WorkingFragment(),
+                                "Working fragment"
+                        ).commit();
+            }
         } else {
             getParentFragmentManager().beginTransaction()
                     .replace(

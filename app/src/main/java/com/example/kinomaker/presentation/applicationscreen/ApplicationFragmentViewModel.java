@@ -1,5 +1,6 @@
 package com.example.kinomaker.presentation.applicationscreen;
 
+import android.util.Log;
 import android.view.View;
 
 import androidx.lifecycle.ViewModel;
@@ -7,6 +8,7 @@ import androidx.lifecycle.ViewModel;
 import com.example.kinomaker.domain.model.User;
 import com.example.kinomaker.domain.usecase.GetUserDataUseCase;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Objects;
 
@@ -35,16 +37,48 @@ public class ApplicationFragmentViewModel extends ViewModel {
     private void initAction(){
         ApplicationFragmentStateHolder currentState = state.getValue();
 
-        String signedInUserEmail = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser())
-                .getEmail();
-
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        Log.d("EMAIL", user.getEmail());
+        String signedInUserEmail = user.getEmail();
+//
         currentState.setCurrentUserEmailFromFirebaseAuth(signedInUserEmail);
-        loadUserInfoFromServer();
+//        loadUserInfoFromServer();
 
-        state.onNext(currentState);
+        useCase.invoke(currentState.getCurrentUserEmailFromFirebaseAuth())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<User>() {
+
+                    Disposable disposable;
+
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+                        disposable = d;
+                    }
+
+                    @Override
+                    public void onSuccess(@NonNull User user) {
+                        currentState.setCurrentUser(user);
+                        currentState.setErrorHappened(false);
+                        currentState.setErrorText("");
+
+                        state.onNext(currentState);
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        currentState.setErrorHappened(true);
+                        currentState.setErrorText(e.getMessage());
+
+                        state.onNext(currentState);
+                        disposable.dispose();
+                    }
+                });
+
+//        state.onNext(currentState);
     }
 
-    private void loadUserInfoFromServer(){
+    public void loadUserInfoFromServer(){
         ApplicationFragmentStateHolder currentState = state.getValue();
 
         useCase.invoke(currentState.getCurrentUserEmailFromFirebaseAuth())
@@ -65,6 +99,7 @@ public class ApplicationFragmentViewModel extends ViewModel {
                         currentState.setErrorHappened(false);
                         currentState.setErrorText("");
 
+                        state.onNext(currentState);
                         disposable.dispose();
                     }
 
@@ -73,6 +108,7 @@ public class ApplicationFragmentViewModel extends ViewModel {
                         currentState.setErrorHappened(true);
                         currentState.setErrorText(e.getMessage());
 
+                        state.onNext(currentState);
                         disposable.dispose();
                     }
                 });
@@ -84,6 +120,7 @@ public class ApplicationFragmentViewModel extends ViewModel {
           GetUserDataUseCase getUserDataUseCase
     ){
         this.useCase = getUserDataUseCase;
+//        loadUserInfoFromServer();
         initAction();
     }
 

@@ -21,10 +21,11 @@ import com.example.kinomaker.presentation.choosingscreen.ChoosingStateHolder;
 import com.example.kinomaker.presentation.choosingscreen.ChoosingViewModel;
 import com.example.kinomaker.presentation.workingscreen.WorkingFragment;
 
+import dagger.hilt.android.AndroidEntryPoint;
 import io.reactivex.rxjava3.core.Observer;
 import io.reactivex.rxjava3.disposables.Disposable;
 
-
+@AndroidEntryPoint
 public class ChoosingFragment extends Fragment {
 
     private FragmentChoosingBinding binding;
@@ -95,6 +96,7 @@ public class ChoosingFragment extends Fragment {
 
         if (state.isTaskCompleted()){
             KinomakerApp.getRouter().newRootScreen(Screen.ApplicationFragmentScreen());
+            Log.d("UPDATECOMPANY","Done");
         }
         if (state.isErrorHappened()){
             Toast.makeText(

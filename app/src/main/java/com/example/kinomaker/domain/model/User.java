@@ -11,7 +11,7 @@ public class User {
     private String country;
     private String city;
     private String gender;
-    private String isCompany;
+    private String company;
 
     public User() {
     }
@@ -26,7 +26,7 @@ public class User {
             String country,
             String city,
             String gender,
-            String isCompany
+            String company
     ) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -37,15 +37,15 @@ public class User {
         this.country = country;
         this.city = city;
         this.gender = gender;
-        this.isCompany = isCompany;
+        this.company = company;
     }
 
-    public String isCompany() {
-        return isCompany;
+    public String getCompany() {
+        return company;
     }
 
     public void setCompany(String company) {
-        isCompany = company;
+        company = company;
     }
 
     public String getFirstName() {

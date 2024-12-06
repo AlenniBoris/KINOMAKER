@@ -10,6 +10,9 @@ import android.view.ViewGroup;
 
 import com.example.kinomaker.R;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class WorkingFragment extends Fragment {
 
 

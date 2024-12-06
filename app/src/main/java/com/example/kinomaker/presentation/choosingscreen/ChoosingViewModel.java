@@ -27,7 +27,6 @@ import io.reactivex.rxjava3.subjects.BehaviorSubject;
 @HiltViewModel
 public class ChoosingViewModel extends ViewModel {
 
-    private GetUserDataUseCase getUserDataUseCase;
     private UpdateUserDataUseCase updateUserDataUseCase;
 
     private BehaviorSubject<ChoosingStateHolder> state =
@@ -35,13 +34,9 @@ public class ChoosingViewModel extends ViewModel {
 
     @Inject
     public ChoosingViewModel(
-            GetUserDataUseCase getUserDataUseCase,
             UpdateUserDataUseCase updateUserDataUseCase
     ) {
-        this.getUserDataUseCase = getUserDataUseCase;
         this.updateUserDataUseCase = updateUserDataUseCase;
-
-        getUserData();
     }
 
     public Observable<ChoosingStateHolder> getObservable(){
@@ -55,8 +50,8 @@ public class ChoosingViewModel extends ViewModel {
         ChoosingStateHolder currentState = state.getValue();
 
         updateUserDataUseCase.invoke(
-                currentState.getUser().getEmail(),
-                "isCompany",
+                Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getEmail(),
+                "company",
                 String.valueOf(value)
         ).subscribe(new CompletableObserver() {
 
@@ -72,7 +67,7 @@ public class ChoosingViewModel extends ViewModel {
                 currentState.setTaskCompleted(true);
                 currentState.setErrorHappened(false);
                 currentState.setErrorMessage("");
-                disposable.dispose();
+                state.onNext(currentState);
             }
 
             @Override
@@ -84,38 +79,4 @@ public class ChoosingViewModel extends ViewModel {
             }
         });
     }
-
-    private void getUserData(){
-        String email = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getEmail();
-
-        ChoosingStateHolder currentState = state.getValue();
-
-        getUserDataUseCase.invoke(email)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new SingleObserver<User>() {
-
-                    Disposable disposable;
-
-                    @Override
-                    public void onSubscribe(@NonNull Disposable d) {
-                        disposable = d;
-                    }
-
-                    @Override
-                    public void onSuccess(@NonNull User user) {
-                        currentState.setUser(user);
-                        state.onNext(currentState);
-                        disposable.dispose();
-                    }
-
-                    @Override
-                    public void onError(@NonNull Throwable e) {
-                        disposable.dispose();
-                    }
-                });
-
-    }
-
-
 }

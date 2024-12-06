@@ -139,7 +139,7 @@ public class UserRepositoryImpl implements UserRepository {
                                 snapshot.getString("country"),
                                 snapshot.getString("city"),
                                 snapshot.getString("gender"),
-                                snapshot.getString("isCompany")
+                                snapshot.getString("company")
 //                                Mapper.toResume(snapshot.get("resume")),
 //                                Mapper.toVacancyList(snapshot.get("applications"))
                             );
