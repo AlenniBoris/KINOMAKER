@@ -30,11 +30,6 @@ public class MainActivity extends AppCompatActivity {
 
         navigator = new AppNavigator(this, R.id.flActivityContainer);
 
-//        SharedPreferences sharedPreferences = this.getPreferences(Context.MODE_PRIVATE);
-//        String signedInEmail = sharedPreferences.getString("signed_in_email", "");
-//        viewModel.updateCurrentUser(signedInEmail);
-//        Log.d("STARTING_USER", "onCreate = "+signedInEmail);
-
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
 
@@ -47,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
                         "Welcome back, " + user.getEmail(),
                         Toast.LENGTH_SHORT
                 ).show();
-                KinomakerApp.getRouter().newRootScreen(Screen.ApplicationFragmentScreen());
+                KinomakerApp.getRouter().newRootScreen(Screen.WorkingFragmentScreen());
             }
         }
 
@@ -68,11 +63,5 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-//
-//        SharedPreferences sharedPreferences = this.getPreferences(Context.MODE_PRIVATE);
-//        SharedPreferences.Editor editor = sharedPreferences.edit();
-//        editor.putString("signed_in_email", viewModel.getCurrentUserEmail());
-//        editor.apply();
-
     }
 }

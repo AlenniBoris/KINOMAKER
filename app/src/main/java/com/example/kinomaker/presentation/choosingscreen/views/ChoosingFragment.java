@@ -16,7 +16,6 @@ import android.widget.Toast;
 import com.example.kinomaker.databinding.FragmentChoosingBinding;
 import com.example.kinomaker.di.KinomakerApp;
 import com.example.kinomaker.navigation.Screen;
-import com.example.kinomaker.presentation.applicationscreen.ApplicationFragmentStateHolder;
 import com.example.kinomaker.presentation.choosingscreen.ChoosingStateHolder;
 import com.example.kinomaker.presentation.choosingscreen.ChoosingViewModel;
 import com.example.kinomaker.presentation.workingscreen.WorkingFragment;
@@ -95,7 +94,7 @@ public class ChoosingFragment extends Fragment {
     private void updateUi(ChoosingStateHolder state){
 
         if (state.isTaskCompleted()){
-            KinomakerApp.getRouter().newRootScreen(Screen.ApplicationFragmentScreen());
+            KinomakerApp.getRouter().newRootScreen(Screen.WorkingFragmentScreen());
             Log.d("UPDATECOMPANY","Done");
         }
         if (state.isErrorHappened()){

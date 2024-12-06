@@ -122,7 +122,6 @@ public class LoginFragment extends Fragment {
 
     public void updateUi(LoginStateHolder state) {
         if (state.isUserIsAdded()) {
-
             FirebaseAuth mAuth = FirebaseAuth.getInstance();
             mAuth.signInWithEmailAndPassword(state.getEnteredEmail(), state.getEnteredPassword())
                             .addOnCompleteListener(task -> {
@@ -135,7 +134,7 @@ public class LoginFragment extends Fragment {
                                 }
                             });
 
-            KinomakerApp.getRouter().newRootScreen(Screen.ApplicationFragmentScreen());
+            KinomakerApp.getRouter().newRootScreen(Screen.WorkingFragmentScreen());
             return;
         }
         if (state.isErrorHappened()) {

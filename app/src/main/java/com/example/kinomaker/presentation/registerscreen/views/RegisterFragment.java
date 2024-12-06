@@ -119,7 +119,6 @@ public class RegisterFragment extends Fragment {
 
     public void updateUi(RegisterStateHolder state) {
         if (state.isUserWasRegistered()) {
-
             FirebaseAuth mAuth = FirebaseAuth.getInstance();
             mAuth.createUserWithEmailAndPassword(state.getEmail(), state.getPassword());
             mAuth.signInWithEmailAndPassword(state.getEmail(), state.getPassword())
@@ -132,7 +131,7 @@ public class RegisterFragment extends Fragment {
                                     ).show();
                                 }
                             });
-            KinomakerApp.getRouter().newRootScreen(Screen.ApplicationFragmentScreen());
+            KinomakerApp.getRouter().newRootScreen(Screen.ChoosingFragmentScreen());
             return;
         }
 
